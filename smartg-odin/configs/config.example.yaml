@@ -1,0 +1,49 @@
+server:
+  host: "0.0.0.0"
+  port: 8080
+  mode: debug
+database:
+  driver: sqlite
+  dsn: "./data/odin.db"
+  max_open_conns: 10
+cors:
+  allowed_origins:
+    - "http://localhost:5173"
+    - "http://localhost:3000"
+log:
+  level: debug
+  format: console
+pool:
+  max_open: 10
+  max_idle: 5
+  max_lifetime: 3600
+security:
+  encrypt_key: "odin-default-key"
+ai:
+  enabled: true                       # 默认关闭；开启后规则未命中才走 LLM 回退
+  provider: openai_compatible          # eino-ext openai chatmodel
+  base_url: "https://api.deepseek.com/v1"
+  api_key: ""                          # 支持 ${ODIN_AI_API_KEY} 环境变量注入
+  model: "deepseek-v4-pro"
+  temperature: 0                       # 确定性解码
+  seed: 42                             # 固定种子
+  response_format: json_schema_strict
+  max_repair: 2                        # IntentValidator 有界修复次数
+  stream: true
+  intent_cache:
+    enabled: false                     # 本期关闭，先跑通链路
+  clarification:
+    enabled: true
+    max_options: 4
+  concept_rag:
+    enabled: false
+  multihop:
+    # P2 多跳确定性不变量：两个受限 LLM 槽位默认全关，改走纯 Go 词法/正则解析。
+    llm_entry_anchor: false            # 入口实体锚：词法优先（裸标识符+类 label+键属性），LLM 仅兜底
+    llm_path_select: false             # 关系路径剪枝：确定性词法打分选边（含 1 跳前瞻），不调用 LLM
+  sql_gen:
+    max_repair: 2                      # SQL 解析/校验失败重试次数
+    max_limit: 10000                   # 强制 LIMIT 上限
+    default_limit: 1000                # SQL 无 LIMIT 时追加的默认值
+    timeout_seconds: 30                # 单条 SQL 执行超时秒数
+    max_rows: 10000                    # 结果行数截断上限

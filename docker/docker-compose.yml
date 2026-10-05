@@ -1,0 +1,73 @@
+services:
+  # ============================================================
+  # MySQL 8.4
+  # ============================================================
+  mysql:
+    image: mysql:8.4.7
+    container_name: odin-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME:-smartj}
+      TZ: Asia/Shanghai
+    ports:
+      - "${DB_PORT:-13306}:3306"
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+      - ./init-db/mysql:/docker-entrypoint-initdb.d:ro
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --mysql-native-password=ON
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:17-alpine
+    container_name: odin-pgsql
+    pull_policy: missing
+    environment:
+      POSTGRES_DB: ${PG_DB:-demo}
+      POSTGRES_USER: ${PG_USERNAME:-odin}
+      POSTGRES_PASSWORD: ${PG_PASSWORD:-Cqmygnsdss@123}
+      TZ: Asia/Shanghai
+    ports:
+      - "${PG_PORT:-15432}:5432"
+    volumes:
+      - ./data/pg:/var/lib/postgresql/data
+      - ./init-db/postgres:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PG_USERNAME:-odin} -d ${PG_DB:-demo}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    restart: unless-stopped
+
+  # dm:
+  #   image: docker.1ms.run/wxpid/dm8:812-x86}
+  #   container_name: odin-dm
+  #   pull_policy: missing
+  #   privileged: true
+  #   user: "0:0"
+  #   entrypoint:
+  #     - /bin/bash
+  #     - -c
+  #     - chown -R 12345:12349 /opt/dmdbms/data && exec runuser -u dmdba -- /entrypoint.sh
+  #   environment:
+  #     - PAGE_SIZE=16
+  #     - EXTENT_SIZE=32
+  #     - LOG_SIZE=1024
+  #     - UNICODE_FLAG=1
+  #     - INSTANCE_NAME=DMSERVER
+  #     - LD_LIBRARY_PATH=/opt/dmdbms/bin
+  #     - SYSDBA_PWD=${DM_PASSWORD:-Sysdba001}
+  #   ports:
+  #     - "${DM_PORT:-15236}:5236"
+  #   volumes:
+  #     - ./data/dm:/opt/dmdbms/data
+  #   restart: unless-stopped
