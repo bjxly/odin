@@ -1,0 +1,21 @@
+export default {
+  sysDept: {
+    title: 'Department Management',
+    list: 'Department List',
+    addTitle: 'Add Department',
+    editTitle: 'Edit Department',
+    deptName: 'Department Name',
+    parentId: 'Parent Department',
+    parentName: 'Parent Department',
+    sort: 'Sort',
+    leader: 'Leader',
+    phone: 'Phone',
+    email: 'Email',
+    status: 'Status',
+    remark: 'Remark',
+    createTime: 'Create Time',
+    root: 'Root Department',
+    confirmDelete: 'Confirm delete this department?',
+    deptSearch: 'Search department name',
+  },
+}

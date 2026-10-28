@@ -1,0 +1,46 @@
+export default {
+  layout: {
+    appTitle: 'ODIN',
+    admin: 'Admin',
+    logout: 'Logout',
+    profile: 'Profile',
+    // Layout config panel
+    layoutConfig: 'Layout Config',
+    layoutSwitch: 'Layout Switch',
+    sidebar: 'Sidebar',
+    sidebarTop: 'Sidebar Top',
+    horizontal: 'Horizontal',
+    columns: 'Columns',
+    globalTheme: 'Global Theme',
+    darkMode: 'Dark Mode',
+    watermark: 'Watermark',
+    navIcon: 'Nav Icon',
+    tagsView: 'TagsView',
+    navColor: 'Nav Color',
+    startColor: 'Start Color',
+    endColor: 'End Color',
+    presets: 'Presets',
+    resetConfig: 'Reset Config',
+    resetConfirm: 'Are you sure to reset all layout config?',
+    // TagsView context menu
+    refresh: 'Refresh',
+    close: 'Close',
+    closeOthers: 'Close Others',
+    closeAll: 'Close All',
+    // Preset names
+    presetDeepBlue: 'Deep Blue (Default)',
+    presetSpaceBlue: 'Space Blue',
+    presetPurple: 'Dark Purple',
+    presetGreen: 'Dark Green',
+    presetBlack: 'Carbon Black',
+    presetNavy: 'Navy Blue',
+    configTitle: 'settings',
+    // Tenant switcher
+    currentTenant: 'Current Tenant',
+    switchTenant: 'Switch Tenant',
+    tenantSwitchSuccess: 'Tenant switched successfully',
+    tenantSwitchFailed: 'Failed to switch tenant',
+    // Anonymous mode (internal build) display name
+    internalUser: 'Internal User',
+  },
+}

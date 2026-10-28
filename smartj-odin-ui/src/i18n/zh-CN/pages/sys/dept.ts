@@ -1,0 +1,21 @@
+export default {
+  sysDept: {
+    title: '部门管理',
+    list: '部门列表',
+    addTitle: '新增部门',
+    editTitle: '编辑部门',
+    deptName: '部门名称',
+    parentId: '上级部门',
+    parentName: '上级部门',
+    sort: '排序',
+    leader: '负责人',
+    phone: '联系电话',
+    email: '邮箱',
+    status: '状态',
+    remark: '备注',
+    createTime: '创建时间',
+    root: '顶级部门',
+    confirmDelete: '确认删除该部门？',
+    deptSearch: '请输入部门名称',
+  },
+}

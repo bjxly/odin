@@ -1,0 +1,162 @@
+/* ============================================
+ * SmartX Scheduler CSS 变量体系
+ * ============================================ */
+
+/* ---------- 浅色模式 ---------- */
+:root {
+  /* 品牌色 */
+  --sm-color-primary: #409eff;
+  --sm-color-success: #67c23a;
+  --sm-color-warning: #e6a23c;
+  --sm-color-danger: #f56c6c;
+  --sm-color-info: #909399;
+
+  /* 文字色 */
+  --sm-text-primary: #303133;
+  --sm-text-regular: #606266;
+  --sm-text-secondary: #909399;
+  --sm-text-placeholder: #c0c4cc;
+
+  /* 背景色 */
+  --sm-bg-page: #f5f7fa;
+  --sm-bg-card: #ffffff;
+  --sm-bg-header: #fafafa;
+  --sm-bg-hover: #f5f7fa;
+
+  /* 边框色 */
+  --sm-border-base: #dcdfe6;
+  --sm-border-light: #e4e7ed;
+  --sm-border-lighter: #ebeef5;
+  --sm-border-extra-light: #f2f6fc;
+
+  /* 导航栏 */
+  --sm-nav-bg-start: #1d1e3a;
+  --sm-nav-bg-end: #2d2f5e;
+  --sm-nav-text: #ffffff;
+  --sm-nav-text-active: #409eff;
+
+  /* 间距 */
+  --sm-spacing-xs: 4px;
+  --sm-spacing-sm: 8px;
+  --sm-spacing-md: 12px;
+  --sm-spacing-lg: 16px;
+  --sm-spacing-xl: 20px;
+  --sm-spacing-xxl: 24px;
+
+  /* 布局尺寸 */
+  --sm-sidebar-width: 220px;
+  --sm-sidebar-collapse-width: 64px;
+  --sm-column-bar-width: 64px;
+  --sm-header-height: 56px;
+  --sm-tagsview-height: 38px;
+  --sm-mobile-tabbar-height: 50px;
+
+  /* 圆角 */
+  --sm-radius-sm: 2px;
+  --sm-radius-md: 4px;
+  --sm-radius-lg: 8px;
+
+  /* 字体 */
+  --sm-font-size-xs: 12px;
+  --sm-font-size-sm: 13px;
+  --sm-font-size-base: 14px;
+  --sm-font-size-lg: 16px;
+  --sm-font-size-xl: 18px;
+
+  /* 表格 */
+  --sm-table-header-bg: #fafafa;
+  --sm-table-header-text: #606266;
+  --sm-table-border: #ebeef5;
+  --sm-table-row-hover: #f5f7fa;
+
+  /* 代码编辑器 */
+  --sm-code-bg: #ffffff;
+  --sm-code-header-bg: #fafafa;
+  --sm-code-border: #e4e7ed;
+  --sm-code-text: #24292e;
+  --sm-code-text-secondary: #586069;
+  --sm-code-text-muted: #959da5;
+  --sm-code-caret: #24292e;
+  --sm-code-readonly-text: #24292e;
+  --sm-code-badge-bg: #e1e4e8;
+
+  /* ODIN 专用 */
+  --sm-color-cross-source: #f59e0b;       /* 跨源琥珀色 */
+  --sm-color-ontology-normal: #3b82f6;    /* 本体节点正常态 */
+  --sm-color-ontology-unmapped: #9ca3af;  /* 未映射灰 */
+  --sm-color-ontology-virtual: #10b981;   /* 虚拟类绿 */
+  --sm-color-trace-success: #10b981;
+  --sm-color-trace-error: #ef4444;
+}
+
+/* ---------- 深色模式 ---------- */
+[data-theme='dark'] {
+  /* 文字色 */
+  --sm-text-primary: #f0f0f0;
+  --sm-text-regular: #d0d0d0;
+  --sm-text-secondary: #8a8a8a;
+  --sm-text-placeholder: #5a5a5a;
+
+  /* 背景色 */
+  --sm-bg-page: #141414;
+  --sm-bg-card: #1e1e1e;
+  --sm-bg-header: #262626;
+  --sm-bg-hover: #2a2a2a;
+
+  /* 边框色 */
+  --sm-border-base: #3a3a3a;
+  --sm-border-light: #333333;
+  --sm-border-lighter: #2c2c2c;
+  --sm-border-extra-light: #252525;
+
+  /* 导航栏 */
+  --sm-nav-bg-start: #0d0d1a;
+  --sm-nav-bg-end: #1a1a33;
+
+  /* 表格 */
+  --sm-table-header-bg: #262626;
+  --sm-table-header-text: #d0d0d0;
+  --sm-table-border: #3a3a3a;
+  --sm-table-row-hover: #2a2a2a;
+
+  /* 代码编辑器 */
+  --sm-code-bg: #1e1e1e;
+  --sm-code-header-bg: #2d2d2d;
+  --sm-code-border: #404040;
+  --sm-code-text: #d4d4d4;
+  --sm-code-text-secondary: #555555;
+  --sm-code-text-muted: #666666;
+  --sm-code-caret: #ffffff;
+  --sm-code-readonly-text: #d4d4d4;
+  --sm-code-badge-bg: #3a3a3a;
+
+  /* ODIN 专用（深色模式微调亮度） */
+  --sm-color-cross-source: #fbbf24;
+  --sm-color-ontology-normal: #60a5fa;
+  --sm-color-ontology-unmapped: #6b7280;
+  --sm-color-ontology-virtual: #34d399;
+  --sm-color-trace-success: #34d399;
+  --sm-color-trace-error: #f87171;
+
+  /* 覆盖 Element Plus 变量 */
+  --el-bg-color: var(--sm-bg-card);
+  --el-bg-color-overlay: var(--sm-bg-card);
+  --el-bg-color-page: var(--sm-bg-page);
+  --el-text-color-primary: var(--sm-text-primary);
+  --el-text-color-regular: var(--sm-text-regular);
+  --el-text-color-secondary: var(--sm-text-secondary);
+  --el-text-color-placeholder: var(--sm-text-placeholder);
+  --el-border-color: var(--sm-border-base);
+  --el-border-color-light: var(--sm-border-light);
+  --el-border-color-lighter: var(--sm-border-lighter);
+  --el-border-color-extra-light: var(--sm-border-extra-light);
+  --el-fill-color-blank: var(--sm-bg-card);
+  --el-fill-color: var(--sm-bg-header);
+  --el-fill-color-light: #2a2a2a;
+  --el-fill-color-lighter: #262626;
+  --el-color-white: var(--sm-bg-card);
+  --el-mask-color: rgba(0, 0, 0, 0.6);
+  --el-box-shadow-light: 0 2px 12px rgba(0, 0, 0, 0.4);
+  --el-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  --el-box-shadow-dark: 0 2px 16px rgba(0, 0, 0, 0.6);
+}

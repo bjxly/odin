@@ -1,0 +1,68 @@
+{
+  "warehouse": {
+    "width": 40,
+    "length": 70,
+    "height": 12,
+    "aisleWidth": 3.5,
+    "rackDepth": 1.2,
+    "pairCount": 4,
+    "rackRows": 4,
+    "rackColumns": 4,
+    "rackLevels": 8,
+    "levelHeight": 1.2,
+    "beamThickness": 0.12,
+    "uprightWidth": 0.1,
+    "colors": {
+      "upright": "#1a5ab8",
+      "beam": "#d4412a",
+      "floor": "#b0b0b0",
+      "wall": "#e0e0e0"
+    }
+  },
+  "rackSections": [
+    { "id": "A1", "label": "A1", "categoryLabel": "能源矿产岩心", "row": 0, "levels": 8, "columns": 4, "palletWidth": 1.1, "palletDepth": 1.0, "facing": 1 },
+    { "id": "A2", "label": "A2", "categoryLabel": "能源矿产岩心", "row": 0, "levels": 8, "columns": 4, "palletWidth": 1.1, "palletDepth": 1.0, "facing": -1 },
+    { "id": "B1", "label": "B1", "categoryLabel": "金属矿产岩心", "row": 1, "levels": 8, "columns": 4, "palletWidth": 1.1, "palletDepth": 1.0, "facing": 1 },
+    { "id": "B2", "label": "B2", "categoryLabel": "金属矿产岩心", "row": 1, "levels": 8, "columns": 4, "palletWidth": 1.1, "palletDepth": 1.0, "facing": -1 },
+    { "id": "C1", "label": "C1", "categoryLabel": "非金属矿产岩心", "row": 2, "levels": 8, "columns": 4, "palletWidth": 1.1, "palletDepth": 1.0, "facing": 1 },
+    { "id": "C2", "label": "C2", "categoryLabel": "非金属矿产岩心", "row": 2, "levels": 8, "columns": 4, "palletWidth": 1.1, "palletDepth": 1.0, "facing": -1 },
+    { "id": "D1", "label": "D1", "categoryLabel": "水文地质岩心", "row": 3, "levels": 8, "columns": 4, "palletWidth": 1.1, "palletDepth": 1.0, "facing": 1 },
+    { "id": "D2", "label": "D2", "categoryLabel": "水文地质岩心", "row": 3, "levels": 8, "columns": 4, "palletWidth": 1.1, "palletDepth": 1.0, "facing": -1 }
+  ],
+  "boxSpecs": [
+    { "name": "小规格", "width": 110, "depth": 30, "height": 10, "color": "#e88a2a" },
+    { "name": "大规格", "width": 110, "depth": 100, "height": 15, "color": "#d4a017" }
+  ],
+  "palletConfig": {
+    "width": 120,
+    "depth": 100,
+    "height": 15,
+    "maxBoxes": 10,
+    "defaultBoxes": 5
+  },
+  "inventory": [
+    { "palletId": "P001", "rackId": "A1", "level": 0, "column": 0, "boxSpec": "小规格", "boxCount": 6, "isOccupied": true, "projectNo": "PJ-2024-001", "holeNo": "ZK-01", "depthFrom": 120.5, "depthTo": 185.0, "coreLength": 64.5 },
+    { "palletId": "P002", "rackId": "A1", "level": 0, "column": 1, "boxSpec": "大规格", "boxCount": 4, "isOccupied": true, "projectNo": "PJ-2024-001", "holeNo": "ZK-01", "depthFrom": 185.0, "depthTo": 260.0, "coreLength": 75.0 },
+    { "palletId": "P003", "rackId": "A1", "level": 2, "column": 0, "boxSpec": "小规格", "boxCount": 8, "isOccupied": true, "projectNo": "PJ-2024-001", "holeNo": "ZK-02", "depthFrom": 50.0, "depthTo": 130.0, "coreLength": 80.0 },
+    { "palletId": "P004", "rackId": "A1", "level": 5, "column": 1, "boxSpec": "大规格", "boxCount": 3, "isOccupied": true, "projectNo": "PJ-2024-002", "holeNo": "ZK-05", "depthFrom": 300.0, "depthTo": 345.0, "coreLength": 45.0 },
+
+    { "palletId": "P005", "rackId": "B1", "level": 1, "column": 0, "boxSpec": "小规格", "boxCount": 7, "isOccupied": true, "projectNo": "PJ-2024-002", "holeNo": "ZK-05", "depthFrom": 100.0, "depthTo": 170.0, "coreLength": 70.0 },
+    { "palletId": "P006", "rackId": "B1", "level": 3, "column": 1, "boxSpec": "大规格", "boxCount": 5, "isOccupied": true, "projectNo": "PJ-2024-002", "holeNo": "ZK-06", "depthFrom": 200.0, "depthTo": 275.0, "coreLength": 75.0 },
+    { "palletId": "P007", "rackId": "B1", "level": 6, "column": 0, "boxSpec": "小规格", "boxCount": 4, "isOccupied": true, "projectNo": "PJ-2024-003", "holeNo": "ZK-08", "depthFrom": 30.0, "depthTo": 70.0, "coreLength": 40.0 },
+
+    { "palletId": "P008", "rackId": "B2", "level": 0, "column": 0, "boxSpec": "大规格", "boxCount": 6, "isOccupied": true, "projectNo": "PJ-2024-003", "holeNo": "ZK-08", "depthFrom": 150.0, "depthTo": 210.0, "coreLength": 60.0 },
+    { "palletId": "P009", "rackId": "B2", "level": 4, "column": 1, "boxSpec": "小规格", "boxCount": 9, "isOccupied": true, "projectNo": "PJ-2024-003", "holeNo": "ZK-09", "depthFrom": 80.0, "depthTo": 170.0, "coreLength": 90.0 },
+
+    { "palletId": "P010", "rackId": "C1", "level": 1, "column": 0, "boxSpec": "小规格", "boxCount": 5, "isOccupied": true, "projectNo": "PJ-2024-009", "holeNo": "ZK-28", "depthFrom": 60.0, "depthTo": 110.0, "coreLength": 50.0 },
+    { "palletId": "P011", "rackId": "C1", "level": 3, "column": 1, "boxSpec": "大规格", "boxCount": 4, "isOccupied": true, "projectNo": "PJ-2024-009", "holeNo": "ZK-29", "depthFrom": 150.0, "depthTo": 190.0, "coreLength": 40.0 },
+
+    { "palletId": "P012", "rackId": "C2", "level": 0, "column": 0, "boxSpec": "大规格", "boxCount": 6, "isOccupied": true, "projectNo": "PJ-2024-010", "holeNo": "ZK-30", "depthFrom": 200.0, "depthTo": 260.0, "coreLength": 60.0 },
+    { "palletId": "P013", "rackId": "C2", "level": 5, "column": 1, "boxSpec": "小规格", "boxCount": 3, "isOccupied": true, "projectNo": "PJ-2024-010", "holeNo": "ZK-31", "depthFrom": 80.0, "depthTo": 110.0, "coreLength": 30.0 },
+
+    { "palletId": "P014", "rackId": "D1", "level": 2, "column": 0, "boxSpec": "小规格", "boxCount": 7, "isOccupied": true, "projectNo": "PJ-2024-011", "holeNo": "ZK-32", "depthFrom": 30.0, "depthTo": 100.0, "coreLength": 70.0 },
+    { "palletId": "P015", "rackId": "D1", "level": 4, "column": 1, "boxSpec": "大规格", "boxCount": 5, "isOccupied": true, "projectNo": "PJ-2024-011", "holeNo": "ZK-33", "depthFrom": 180.0, "depthTo": 230.0, "coreLength": 50.0 },
+
+    { "palletId": "P016", "rackId": "D2", "level": 0, "column": 1, "boxSpec": "大规格", "boxCount": 4, "isOccupied": true, "projectNo": "PJ-2024-012", "holeNo": "ZK-34", "depthFrom": 250.0, "depthTo": 290.0, "coreLength": 40.0 },
+    { "palletId": "P017", "rackId": "D2", "level": 6, "column": 0, "boxSpec": "小规格", "boxCount": 8, "isOccupied": true, "projectNo": "PJ-2024-012", "holeNo": "ZK-35", "depthFrom": 50.0, "depthTo": 130.0, "coreLength": 80.0 }
+  ]
+}

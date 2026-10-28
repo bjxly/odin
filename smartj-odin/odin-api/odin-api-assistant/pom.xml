@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.smartj.odin</groupId>
+        <artifactId>odin-api</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <artifactId>odin-api-assistant</artifactId>
+    <name>SmartG-Odin API Assistant</name>
+    <description>助手域 API 定义（DTO/VO/Query/ErrorCode）</description>
+    <dependencies>
+        <dependency>
+            <groupId>com.smartj</groupId>
+            <artifactId>smartj-common-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations-jakarta</artifactId>
+        </dependency>
+    </dependencies>
+</project>

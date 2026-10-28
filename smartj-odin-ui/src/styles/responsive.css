@@ -1,0 +1,86 @@
+/* ============================
+ * 响应式断点与媒体查询
+ * 断点: xs=576px, sm=768px, md=992px, lg=1200px, xl=1920px
+ * ============================ */
+
+/* === 移动端 (< 768px) === */
+@media (max-width: 767px) {
+  /* 检索区：纵向排列 */
+  .sm-query-container {
+    flex-direction: column;
+    gap: var(--sm-spacing-sm);
+  }
+  .sm-query-container .el-form {
+    width: 100%;
+  }
+  .sm-query-container .sm-query-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  /* 表单项全宽 */
+  .sm-query-container .el-form-item {
+    width: 100% !important;
+    margin-right: 0 !important;
+  }
+  /* 表格横向滚动 */
+  .el-table {
+    overflow-x: auto;
+  }
+  /* 表格头部：标题和按钮换行 */
+  .sm-table-header {
+    flex-wrap: wrap;
+    gap: var(--sm-spacing-sm);
+  }
+  .sm-table-header .sm-table-header-actions {
+    width: 100%;
+  }
+  /* 页面间距缩小 */
+  .sm-page {
+    padding: var(--sm-spacing-sm);
+    gap: var(--sm-spacing-sm);
+  }
+  .sm-card {
+    padding: var(--sm-spacing-md);
+  }
+  /* 分页精简 */
+  .el-pager,
+  .el-pagination__jump {
+    display: none;
+  }
+  .el-pagination {
+    justify-content: center;
+  }
+  /* 对话框全宽 */
+  .el-dialog {
+    width: 95% !important;
+    margin-top: 5vh !important;
+  }
+  /* 左树右表改为上下 */
+  .sm-split-layout {
+    flex-direction: column;
+  }
+  .sm-split-layout .sm-split-left {
+    flex: none;
+    width: 100%;
+  }
+}
+
+/* === 平板 (768px - 991px) === */
+@media (min-width: 768px) and (max-width: 991px) {
+  .el-dialog {
+    width: 80% !important;
+  }
+  .sm-split-layout .sm-split-left {
+    flex: 0 0 200px;
+  }
+  .sm-page {
+    padding: var(--sm-spacing-md);
+  }
+}
+
+/* === 小桌面 (992px - 1199px) === */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .sm-split-layout .sm-split-left {
+    flex: 0 0 220px;
+  }
+}

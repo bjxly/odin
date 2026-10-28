@@ -1,0 +1,46 @@
+export default {
+  layout: {
+    appTitle: 'ODIN',
+    admin: '管理员',
+    logout: '退出登录',
+    profile: '个人中心',
+    // 布局配置面板
+    layoutConfig: '布局配置',
+    layoutSwitch: '布局切换',
+    sidebar: '左侧',
+    sidebarTop: '左顶',
+    horizontal: '横向',
+    columns: '分栏',
+    globalTheme: '全局主题',
+    darkMode: '深色模式',
+    watermark: '全局水印',
+    navIcon: '导航 Icon',
+    tagsView: 'TagsView',
+    navColor: '导航栏配色',
+    startColor: '起始色',
+    endColor: '结束色',
+    presets: '预设方案',
+    resetConfig: '一键重置配置',
+    resetConfirm: '确定要重置所有布局配置吗？',
+    // TagsView 右键菜单
+    refresh: '刷新',
+    close: '关闭',
+    closeOthers: '关闭其它',
+    closeAll: '全部关闭',
+    // 预设方案名称
+    presetDeepBlue: '深蓝（默认）',
+    presetSpaceBlue: '深空蓝',
+    presetPurple: '暗紫',
+    presetGreen: '墨绿',
+    presetBlack: '碳黑',
+    presetNavy: '藏蓝',
+    configTitle: '设置',
+    // 租户切换器
+    currentTenant: '当前租户',
+    switchTenant: '切换租户',
+    tenantSwitchSuccess: '租户切换成功',
+    tenantSwitchFailed: '租户切换失败',
+    // 免登录模式（内部版）展示名
+    internalUser: '内部用户',
+  },
+}

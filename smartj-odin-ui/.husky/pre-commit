@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+cd smartj-odin-ui && npx lint-staged

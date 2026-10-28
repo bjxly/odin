@@ -1,0 +1,151 @@
+services:
+  # ============================================================
+  # MySQL 8.4
+  # ============================================================
+  mysql:
+    image: mysql:8.4.7
+    container_name: odin-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME:-smartj}
+      TZ: Asia/Shanghai
+    ports:
+      - "${DB_PORT:-13306}:3306"
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+      - ./init-db/mysql:/docker-entrypoint-initdb.d:ro
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --mysql-native-password=ON
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:17-alpine
+    container_name: odin-pgsql
+    pull_policy: missing
+    environment:
+      POSTGRES_DB: ${PG_DB:-demo}
+      POSTGRES_USER: ${PG_USERNAME:-odin}
+      POSTGRES_PASSWORD: ${PG_PASSWORD:-Cqmygnsdss@123}
+      # 演示库使用 UTF8 编码（initdb 默认跟随 locale，Windows Docker 下可能为 SQL_ASCII）
+      POSTGRES_INITDB_ARGS: --encoding=UTF8
+      TZ: Asia/Shanghai
+    ports:
+      - "${PG_PORT:-15432}:5432"
+    volumes:
+      - ./data/pg:/var/lib/postgresql/data
+      - ./init-db/postgres:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PG_USERNAME:-odin} -d ${PG_DB:-demo}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    restart: unless-stopped
+
+  # ============================================================
+  # Redis 8.4 (odin 运行时缓存)
+  # ============================================================
+  redis:
+    image: redis:8.4.0
+    container_name: odin-redis
+    command: redis-server --requirepass ${REDIS_PASSWORD} --maxmemory 256mb --maxmemory-policy allkeys-lru
+    ports:
+      - "${REDIS_PORT:-16379}:6379"
+    volumes:
+      - ./data/redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  # dm:
+  #   image: docker.1ms.run/wxpid/dm8:812-x86}
+  #   container_name: odin-dm
+  #   pull_policy: missing
+  #   privileged: true
+  #   user: "0:0"
+  #   entrypoint:
+  #     - /bin/bash
+  #     - -c
+  #     - chown -R 12345:12349 /opt/dmdbms/data && exec runuser -u dmdba -- /entrypoint.sh
+  #   environment:
+  #     - PAGE_SIZE=16
+  #     - EXTENT_SIZE=32
+  #     - LOG_SIZE=1024
+  #     - UNICODE_FLAG=1
+  #     - INSTANCE_NAME=DMSERVER
+  #     - LD_LIBRARY_PATH=/opt/dmdbms/bin
+  #     - SYSDBA_PWD=${DM_PASSWORD:-Sysdba001}
+  #   ports:
+  #     - "${DM_PORT:-15236}:5236"
+  #   volumes:
+  #     - ./data/dm:/opt/dmdbms/data
+  #   restart: unless-stopped
+
+
+  # ============================================================
+  # SmartJ 主应用（Spring Boot），使用本地 bootstrap JAR
+  # ============================================================
+#  smartj-api:
+#    container_name: smartj-api
+#    image: eclipse-temurin:21-jre-jammy
+#    working_dir: /app
+#    ports:
+#      - "${BACKEND_PORT:-28090}:8090"
+#    volumes:
+#      - ./service/smartj-bootstrap-1.0.0.jar:/app/app.jar:ro
+#      - ./config:/app/config:ro
+#      - ./logs:/app/logs
+#      - ./data/uploads:${OSS_LOCAL_BASE_PATH}
+#    environment:
+#      SPRING_PROFILES_ACTIVE: prod
+#      SMARTJ_DEPLOY_MODE: ${SMARTJ_DEPLOY_MODE:-boot}
+#      SMARTJ_DATASOURCE_DIALECT: ${SMARTJ_DATASOURCE_DIALECT:-mysql}
+#      SMARTJ_CACHE_TYPE: redis
+#      DB_URL: ${DB_URL}
+#      DB_USERNAME: ${DB_USERNAME:-root}
+#      DB_PASSWORD: ${DB_PASSWORD}
+#      SPRING_DATA_REDIS_HOST: ${REDIS_HOST:-redis}
+#      SPRING_DATA_REDIS_PORT: 6379
+#      SPRING_DATA_REDIS_PASSWORD: ${REDIS_PASSWORD}
+#      JWT_KEY_PATH: ${JWT_KEY_PATH}
+#      SMARTJ_AUTH_JWT_KEY_PATH: ${JWT_KEY_PATH}
+#      SMARTJ_AGENT_TOKEN_SECRET: ${SMARTJ_AGENT_TOKEN_SECRET}
+#      SMARTJ_SMS_PROVIDER: ${SMARTJ_SMS_PROVIDER:-console}
+#      JASYPT_ENCRYPTOR_PASSWORD: ${JASYPT_ENCRYPTOR_PASSWORD}
+#      OSS_TYPE: ${OSS_TYPE:-local}
+#      OSS_LOCAL_BASE_PATH: ${OSS_LOCAL_BASE_PATH}
+#      OSS_LOCAL_BASE_URL: ${OSS_LOCAL_BASE_URL}
+#      JAVA_OPTS: ${JAVA_OPTS}
+#      SERVER_PORT: 8090
+#      SERVER_SERVLET_CONTEXT_PATH: /api
+#      LOGGING_FILE_NAME: /app/logs/smartj-bootstrap.log
+#    depends_on:
+#      mysql:
+#        condition: service_healthy
+#      redis:
+#        condition: service_healthy
+#    deploy:
+#      resources:
+#        limits:
+#          cpus: '4.0'
+#          memory: 8G
+#        reservations:
+#          cpus: '1.0'
+#          memory: 2G
+#    restart: unless-stopped
+#    logging:
+#      driver: json-file
+#      options:
+#        max-size: "100m"
+#        max-file: "10"

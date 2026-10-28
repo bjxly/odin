@@ -1,0 +1,90 @@
+/* ============================
+ * Element Plus 组件样式覆盖
+ * 引用 --sm-* 变量，不硬编码颜色
+ * ============================ */
+
+/* === SVG 修复（防止 Tailwind 冲突） === */
+svg {
+  display: inline;
+  vertical-align: baseline;
+}
+
+/* === Button === */
+.el-button [class*='el-icon'] + span {
+  margin-left: 6px;
+}
+
+/* === Form === */
+.el-form--inline .el-form-item {
+  margin-right: var(--sm-spacing-md);
+}
+.el-form--inline .el-input,
+.el-form--inline .el-select,
+.el-form--inline .el-date-editor,
+.el-form--inline .el-cascader {
+  width: 200px;
+}
+
+/* === Table === */
+.el-table {
+  color: var(--sm-text-primary);
+  font-size: var(--sm-font-size-sm);
+}
+.el-table th.el-table__cell {
+  background-color: var(--sm-table-header-bg);
+  color: var(--sm-table-header-text);
+  font-weight: 600;
+}
+.el-table .el-button.is-text,
+.el-table .el-button.is-link {
+  padding: 0;
+}
+.el-table th.el-table__cell {
+  text-align: center !important;
+}
+
+/* === Pagination === */
+.el-pagination {
+  justify-content: flex-end;
+}
+
+/* === Dialog === */
+.el-dialog {
+  border-radius: var(--sm-radius-lg);
+}
+
+/* === 水平菜单弹出面板 === */
+.el-menu--popup {
+  background-color: var(--sm-bg-card) !important;
+}
+.el-menu--popup .el-menu-item,
+.el-menu--popup .el-sub-menu__title {
+  color: var(--sm-text-primary) !important;
+}
+.el-menu--popup .el-menu-item:hover,
+.el-menu--popup .el-menu-item:focus,
+.el-menu--popup .el-sub-menu__title:hover {
+  background-color: var(--sm-bg-hover) !important;
+}
+.el-menu--popup .el-menu-item.is-active {
+  color: var(--sm-color-primary) !important;
+}
+
+/* === Tree === */
+.el-tree-node__content:hover {
+  background-color: color-mix(in srgb, var(--sm-color-primary) 10%, white);
+}
+.el-tree-node.is-current > .el-tree-node__content {
+  background-color: color-mix(in srgb, var(--sm-color-primary) 15%, white);
+  color: var(--sm-color-primary);
+  font-weight: 600;
+}
+
+/* === Message === */
+.el-message {
+  border-radius: var(--sm-radius-md);
+}
+.el-upload-list {
+  max-height: 200px;
+  overflow-y: auto;
+}

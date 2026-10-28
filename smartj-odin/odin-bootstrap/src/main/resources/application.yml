@@ -1,0 +1,337 @@
+server:
+  port: 9000
+  servlet:
+    context-path: /api
+  tomcat:
+    max-http-form-post-size: 10MB
+  # 响应压缩：仅对下列类型启用，显式排除 SSE(text/event-stream)，避免逐 token 流式被 gzip 缓冲
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,application/javascript,application/json
+    excluded-mime-types: text/event-stream
+
+# Jasypt 敏感配置加密
+jasypt:
+  encryptor:
+    password: ${JASYPT_ENCRYPTOR_PASSWORD:smartj-dev-key}
+    algorithm: PBEWithHmacSHA256AndAES_256
+
+spring:
+  application:
+    name: odin
+  profiles:
+    active: dev
+  config:
+    import: "optional:file:./.env.properties"
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+  threads:
+    virtual:
+      enabled: false
+    hikari:
+      maximum-pool-size: ${DB_POOL_MAX:20}
+      minimum-idle: ${DB_POOL_MIN:5}
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      pool-name: SmartJ-HikariCP
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:root}
+  # 数据库初始化由 Docker init-db 目录完成，应用层不执行自动迁移
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+smartj:
+  deploy:
+    mode: boot
+  datasource:
+    # 数据源方言（与 bootstrap 保持一致，切换数据库时两处同步修改）
+    dialect: ${SMARTJ_DATASOURCE_DIALECT:mysql}
+  cache:
+    type: ${SMARTJ_CACHE_TYPE:redis}
+  tenant:
+    enabled: true
+  oss:
+    type: ${OSS_TYPE:local}
+    local:
+      base-path: ./uploads
+      base-url: http://localhost:8080/api/oss/files
+    s3:
+      # ===== 通用配置（所有 S3 兼容存储必填） =====
+      endpoint: ${OSS_ENDPOINT:http://localhost:9000}
+      # 外网端点（预签名URL用，容器部署时配置外网地址，开发环境留空）
+      external-endpoint: ${OSS_EXTERNAL_ENDPOINT:}
+      region: ${OSS_REGION:us-east-1}
+      access-key: ${OSS_ACCESS_KEY:minioadmin}
+      secret-key: ${OSS_SECRET_KEY:minioadmin}
+      # 路径风格访问：Path-Style=true（MinIO/RustFS），Virtual-Hosted-Style=false（阿里云OSSAWS S3）
+      path-style-access: ${OSS_PATH_STYLE:true}
+      buckets:
+        - name: ${OSS_BUCKET:smartj}
+          public: false
+          rename: true
+          # 公开桶外网访问域名（含桶名，CDN/自定义域名用；为空时按 path-style-access 自动推导）
+          external-url: ${OSS_EXTERNAL_URL:}
+      #
+      # ===== MinIO 自建存储示例 =====
+      # smartj:
+      #   oss:
+      #     type: s3
+      #     s3:
+      #       endpoint: http://localhost:9000
+      #       external-endpoint: http://192.168.1.100:9000    # 外网地址（可选）
+      #       region: us-east-1
+      #       access-key: minioadmin
+      #       secret-key: minioadmin
+      #       path-style-access: true
+      #       buckets:
+      #         - { name: smartj, public: false, rename: true }
+      #
+      # ===== RustFS 自建存储示例 =====
+      # smartj:
+      #   oss:
+      #     type: s3
+      #     s3:
+      #       endpoint: http://rustfs:9000
+      #       external-endpoint: http://rustfs.example.com:9000  # 外网地址（可选）
+      #       region: us-east-1
+      #       access-key: ENC(encrypted_access_key)
+      #       secret-key: ENC(encrypted_secret_key)
+      #       path-style-access: true
+      #       buckets:
+      #         - { name: smartj, public: false, rename: true }
+      #
+      # ===== 阿里云 OSS 示例 =====
+      # smartj:
+      #   oss:
+      #     type: s3
+      #     s3:
+      #       endpoint: https://oss-cn-hangzhou.aliyuncs.com
+      #       external-endpoint: https://oss-cn-hangzhou.aliyuncs.com   # 内外网同端点
+      #       region: oss-cn-hangzhou
+      #       access-key: ENC(encrypted_access_key)
+      #       secret-key: ENC(encrypted_secret_key)
+      #       path-style-access: false    # 阿里云 OSS 使用 Virtual-Hosted-Style
+      #       buckets:
+      #         - { name: smartj-bucket, public: false, rename: true }
+      #         # 公开桶：external-url 显式指定访问域名；不配置时按 Virtual-Hosted-Style 自动推导为 https://{bucket}.{endpoint}
+      #         - { name: ifa02, public: true, rename: true, external-url: https://ifa02.oss-cn-hangzhou.aliyuncs.com }
+      #
+      # ===== 腾讯云 COS 示例 =====
+      # smartj:
+      #   oss:
+      #     type: s3
+      #     s3:
+      #       endpoint: https://cos.ap-guangzhou.myqcloud.com
+      #       external-endpoint: https://cos.ap-guangzhou.myqcloud.com
+      #       region: ap-guangzhou
+      #       access-key: ENC(encrypted_access_key)
+      #       secret-key: ENC(encrypted_secret_key)
+      #       path-style-access: true
+      #       buckets:
+      #         - { name: smartj-1250000000, public: false, rename: true }
+      #
+      # ===== AWS S3 示例 =====
+      # smartj:
+      #   oss:
+      #     type: s3
+      #     s3:
+      #       endpoint: https://s3.us-east-1.amazonaws.com
+      #       external-endpoint: https://s3.us-east-1.amazonaws.com
+      #       region: us-east-1
+      #       access-key: ENC(encrypted_access_key)
+      #       secret-key: ENC(encrypted_secret_key)
+      #       path-style-access: false    # AWS 已弃用 Path-Style
+      #       buckets:
+      #         - { name: smartj-prod, public: false, rename: true }
+      #
+      # ===== 华为云 OBS 示例 =====
+      # smartj:
+      #   oss:
+      #     type: s3
+      #     s3:
+      #       endpoint: https://obs.cn-north-4.myhuaweicloud.com
+      #       external-endpoint: https://obs.cn-north-4.myhuaweicloud.com
+      #       region: cn-north-4
+      #       access-key: ENC(encrypted_access_key)
+      #       secret-key: ENC(encrypted_secret_key)
+      #       path-style-access: true
+      #       buckets:
+      #         - { name: smartj-bucket, public: false, rename: true }
+  # === SSO 客户端过滤器（免 SSO 单体必须关闭） ===
+  # smartj-biz-auth 传递依赖 smartj-sso-client，其 SsoTokenFilter 默认对 /** 生效且
+  # @ConditionalOnProperty(matchIfMissing=true)；不显式关闭会与 smartj-common-auth
+  # 资源服务器过滤链冲突，导致 /auth/captcha、/auth/publicKey 等公开端点 401。
+  sso:
+    client:
+      auto-filter-enabled: false
+  auth:
+    jwt:
+      # JWT 密钥路径（占位符可经环境变量覆盖；默认相对启动目录，首次启动自动生成）
+      key-path: ${JWT_KEY_PATH:config/smartj-jwt.key}
+    captcha:
+      enabled: true
+      type: math
+      expire-seconds: 120
+  log:
+    operation:
+      async: true
+  crypto:
+    sm2:
+      enabled: false
+      public-key: ${SMARTJ_SM2_PUBLIC_KEY:}
+      private-key: ${SMARTJ_SM2_PRIVATE_KEY:}
+    sm4:
+      key: ${SMARTJ_SM4_KEY:}
+  security:
+    default-admin-password: admin123
+    default-user-password: 123456
+    # === URL 白名单配置 ===
+    # 注意：token-skip-paths 配置后完全覆盖内置默认值（非合并），
+    # 以下为 smartj-common-auth SecurityWhitelistProperties 的默认值 + /health（actuator base-path 改为 / 后不再匹配 /actuator/**）
+    whitelist:
+      # Token 跳过路径（匿名访问 + 跳过 Bearer Token 解析）
+      token-skip-paths:
+        - /health
+        - /auth/login
+        - /auth/sms-login
+        - /auth/captcha
+        - /auth/publicKey
+        - /auth/refresh
+        - /public-config
+        - /sms/**
+        - /social/exchange
+        - /social/bind
+        - /social/create-and-bind
+        - /register
+        - /forgot-password
+        - /idp/public
+        - /auth/*/login
+        - /*/pay/notify/*
+      # 仅匿名放行路径（不跳过 Token 解析，适用于 OAuth2 回调）
+      permit-only-paths:
+        - /social/*
+        - /social/*/callback
+      # 开放 Actuator / Swagger
+      actuator-open: true
+      swagger-open: true
+  sharding:
+    enabled: false  # 启用后需配合 sharding.yaml 修改数据源
+  cors:
+    # 生产环境请替换为具体域名列表，不要使用 *
+    allowed-origins:
+      - "*"
+      # - http://localhost:5173
+      # - http://localhost:8080
+    allowed-methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - PATCH
+      - OPTIONS
+    allow-credentials: true
+    max-age: 3600
+
+# ==================== ODIN AI 助手（Agentscope-Java + OpenAI 兼容模型，默认 DeepSeek） ====================
+# enabled=false 或缺少 api-key 时，助手回退为占位回复，不影响应用启动与会话持久化。
+# odin:
+#   ai:
+#     enabled: ${ODIN_AI_ENABLED:false}
+#     provider: ${ODIN_AI_PROVIDER:deepseek}
+#     base-url: ${ODIN_AI_BASE_URL:https://api.deepseek.com/v1}
+#     api-key: ${ODIN_AI_API_KEY:}
+#     model: ${ODIN_AI_MODEL:deepseek-chat}
+#     temperature: ${ODIN_AI_TEMPERATURE:0.0}
+#     max-iters: ${ODIN_AI_MAX_ITERS:8}
+#     max-history: ${ODIN_AI_MAX_HISTORY:20}
+#     timeout-seconds: ${ODIN_AI_TIMEOUT_SECONDS:120}
+odin:
+  ai:
+    enabled: ${ODIN_AI_ENABLED:true}
+    provider: ${ODIN_AI_PROVIDER:deepseek}
+    base-url: ${ODIN_AI_BASE_URL:https://api.deepseek.com/v1}
+    api-key: ${ODIN_AI_API_KEY:}
+    model: ${ODIN_AI_MODEL:deepseek-flash}
+    temperature: ${ODIN_AI_TEMPERATURE:0.0}
+    max-iters: ${ODIN_AI_MAX_ITERS:8}
+    max-history: ${ODIN_AI_MAX_HISTORY:20}
+    timeout-seconds: ${ODIN_AI_TIMEOUT_SECONDS:120}
+    # token 级流式开关：true 逐 token 增量下发；false 回退一次性全文单块（供弱模型/网关缓冲场景一键回退）
+    stream: ${ODIN_AI_STREAM:true}
+# MyBatis-Flex
+mybatis-flex:
+  mapper-locations: classpath*:mapper/**/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
+# SpringDoc OpenAPI
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  default-produces-media-type: application/json
+
+# Actuator
+# base-path 设为 / 使健康检查端点映射为 {context-path}/health（即 /api/health，对齐 Go 版本）；
+# 业务控制器统一位于 /odin/** 等前缀下，与 actuator 端点（health/info/metrics/prometheus）无路径冲突。
+# show-details 设为 always：健康检查多为匿名调用（无 SecurityContext），when-authorized 时匿名只能看到 status。
+management:
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{traceId}] %-5level %logger{36} - %msg%n"
+  level:
+    com.smartj: info
+    com.mybatisflex: debug
+
+# ==================== 消息通知中心配置 ====================
+# smartj:
+#   notice:
+#     channel-priority:
+#       - EMAIL
+#       - SMS
+#       - SITE
+#       - IM
+#     async:
+#       enabled: true
+#       core-pool-size: 4
+#       max-pool-size: 8
+#       queue-capacity: 200
+#     email:
+#       provider: console  # javamail（生产）/ console（开发控制台打印）
+#       host: smtp.example.com
+#       port: 465
+#       username: ENC(xxxxxx)
+#       password: ENC(xxxxxx)
+#       from-address: noreply@smartj.com
+#       from-name: SmartJ 通知中心
+#       ssl-enabled: true
+#     websocket:
+#       enabled: true
+#       endpoint: /ws/notice
+#       allowed-origins:
+#         - http://localhost:5173
+#     im:
+#       dingtalk:
+#         enabled: false  # 钉钉群机器人，需在 sys_im_config 表中配置 Webhook
+#       wecom:
+#         enabled: false  # 企业微信群机器人，需在 sys_im_config 表中配置 Webhook

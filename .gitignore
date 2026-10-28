@@ -1,0 +1,34 @@
+# ── 依赖 ──────────────────────────────────────────────────────────────────────
+node_modules/
+
+# ── 构建产物 ───────────────────────────────────────────────────────────────────
+dist/
+
+# ── 运行时数据库与日志 ─────────────────────────────────────────────────────────
+# 注意：设计文档中的 .sql 文件不受影响（此规则只匹配 .db / .log / .err）
+*.db
+*.log
+*.err
+
+# ── 临时产物 ───────────────────────────────────────────────────────────────────
+_tmp_*/
+
+# ── 编辑器 / 系统 ──────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+
+#docker数据
+docker/data/
+设计文档/
+docs/
+target/
+.qoder/
+smartj-odin/odin-bootstrap/target
+smartj-odin/odin-api/target
+smartj-odin/odin-common/target
+smartj-odin/odin-biz/target
+smartj-odin/uploads
+uploads/

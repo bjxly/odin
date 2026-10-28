@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.smartj</groupId>
+        <artifactId>smartj-parent</artifactId>
+        <version>1.0.0</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.smartj.odin</groupId>
+    <artifactId>odin-backend</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>SmartG-Odin Backend</name>
+    <description>SmartG-Odin 本体驱动数据洞察后端（基于 SmartJ 运行时）</description>
+
+    <properties>
+        <java.version>21</java.version>
+        <odin.version>${project.version}</odin.version>
+    </properties>
+
+    <modules>
+        <module>odin-common</module>
+        <module>odin-api</module>
+        <module>odin-biz</module>
+        <module>odin-bootstrap</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.smartj.odin</groupId>
+                <artifactId>odin-common-udap</artifactId>
+                <version>${odin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smartj.odin</groupId>
+                <artifactId>odin-api-datasource</artifactId>
+                <version>${odin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smartj.odin</groupId>
+                <artifactId>odin-api-ontology</artifactId>
+                <version>${odin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smartj.odin</groupId>
+                <artifactId>odin-api-mapping</artifactId>
+                <version>${odin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smartj.odin</groupId>
+                <artifactId>odin-api-query</artifactId>
+                <version>${odin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smartj.odin</groupId>
+                <artifactId>odin-api-assistant</artifactId>
+                <version>${odin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smartj.odin</groupId>
+                <artifactId>odin-api-insight</artifactId>
+                <version>${odin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smartj.odin</groupId>
+                <artifactId>odin-biz-datasource</artifactId>
+                <version>${odin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smartj.odin</groupId>
+                <artifactId>odin-biz-ontology</artifactId>
+                <version>${odin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smartj.odin</groupId>
+                <artifactId>odin-biz-mapping</artifactId>
+                <version>${odin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smartj.odin</groupId>
+                <artifactId>odin-biz-query</artifactId>
+                <version>${odin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smartj.odin</groupId>
+                <artifactId>odin-biz-assistant</artifactId>
+                <version>${odin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smartj.odin</groupId>
+                <artifactId>odin-biz-insight</artifactId>
+                <version>${odin.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

@@ -1,0 +1,59 @@
+/* ============================
+ * 业务通用样式
+ * 检索区、表格区、表单区等
+ * 边距由父级 sm-page/sm-card 控制
+ * ============================ */
+
+/* === 检索区容器（flex 横向布局，表单和按钮并列） === */
+.sm-query-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: var(--sm-spacing-lg);
+}
+
+/* === 检索区表单（占据剩余空间） === */
+.sm-query-container .el-form {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* === 检索区操作按钮（固定右侧） === */
+.sm-query-container > .sm-query-actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--sm-spacing-sm);
+  white-space: nowrap;
+}
+
+/* === 表格头部（标题 + 操作按钮） === */
+.sm-table-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--sm-spacing-md);
+}
+
+/* === 表格标题 === */
+.sm-table-header .sm-table-title {
+  font-size: var(--sm-font-size-base);
+  font-weight: 600;
+  color: var(--sm-text-primary);
+  flex: 0 0 auto;
+}
+
+/* === 表格头部操作按钮（靠右） === */
+.sm-table-header .sm-table-header-actions {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sm-spacing-sm);
+}
+
+/* === 表格分页区 === */
+.sm-table-pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--sm-spacing-lg);
+}
